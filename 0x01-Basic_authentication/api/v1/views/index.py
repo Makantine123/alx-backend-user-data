@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
-from flask import jsonify, abort
+from flask import Blueprint, jsonify, abort
+from flask.typing import ErrorHandlerCallable
+from jinja2 import StrictUndefined
 from api.v1.views import app_views
+
+
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
+def unauthorized_endpoint():
+    """"Unauthorized error"""
+    abort(401)
 
 
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
