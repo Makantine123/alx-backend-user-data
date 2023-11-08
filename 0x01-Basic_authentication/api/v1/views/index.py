@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
-from flask import Response, jsonify, abort
+from flask import Response, jsonify, abort, typing
 from api.v1.views import app_views
 
 
