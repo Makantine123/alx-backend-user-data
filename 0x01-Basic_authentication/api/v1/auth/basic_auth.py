@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Basic authentication module"""
 
-from werkzeug.datastructures import auth
 from .auth import Auth
 
 
