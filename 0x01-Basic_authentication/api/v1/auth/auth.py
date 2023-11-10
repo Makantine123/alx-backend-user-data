@@ -24,7 +24,7 @@ class Auth:
                 exclude_with_slash = exclude + "/"
             last_segment = exclude_with_slash.split("/")[-1]
             if last_segment.endswith("*"):
-                last_segment = last_segment[:-1]
+                last_segment = last_segment[:-1] + "/"
                 if last_segment in path_with_slash:
                     return False
         if path_with_slash in excluded_paths or path in excluded_paths:
