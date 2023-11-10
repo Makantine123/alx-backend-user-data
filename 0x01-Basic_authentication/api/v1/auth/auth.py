@@ -5,6 +5,8 @@ from flask import request
 
 from typing import List, TypeVar
 
+import fnmatch
+
 
 class Auth:
     """Authentication class"""
@@ -14,10 +16,15 @@ class Auth:
         check = path
         if path is None or excluded_paths is None or len(excluded_paths) == 0:
             return True
-        if path[-1] != "/":
+        #if path[-1] != "/":
             check += "/"
-        if check in excluded_paths or path in excluded_paths:
-            return False
+        #if check in excluded_paths or path in excluded_paths:
+        #    return False
+        for excluded_path in excluded_paths:
+            if excluded_path.endswith('*') and fnmatch.fnmatch(path, excluded_path[:-1]):
+                return False
+            elif path == excluded_path:
+                return False
         return True
 
     def authorization_header(self, request=None) -> str:
