@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Module contains SessionAuth class"""
 
+import json
 from typing import Dict, TypeVar
 import uuid
 
 from .auth import Auth
+from models.user import User
 
 
 class SessionAuth(Auth):
@@ -32,7 +34,7 @@ class SessionAuth(Auth):
         try:
             session_id = self.session_cookie(request)
             user_id = self.user_id_for_session_id(session_id)
-            user = User.get(user_id)
+            user = User.get(str(user_id))
             return user
         except Exception:
             return None
