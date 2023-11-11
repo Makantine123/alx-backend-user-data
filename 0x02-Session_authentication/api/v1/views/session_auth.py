@@ -36,8 +36,8 @@ def session_authentication():
                  methods=["DELETE"], strict_slashes=False)
 def logout():
     """Destroy the session of logout"""
-        from api.v1.app import auth
-        destroyed = auth.destroy_session(request)
-        if destroyed is False:
-            abort(404)
-        return jsonify({}), 200
+    from api.v1.app import auth
+    destroyed = auth.destroy_session(request)
+    if destroyed is False:
+        abort(404)
+    return jsonify({}), 200
