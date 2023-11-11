@@ -27,7 +27,7 @@ class SessionAuth(Auth):
         user_id = self.user_id_by_session_id.get(session_id)
         return str(user_id)
 
-    def current_user(self, request=None) -> TypeVar('User'):
+    def current_user(self, request=None):
         """Returns user instance based on the cookie value"""
         if request:
             try:
