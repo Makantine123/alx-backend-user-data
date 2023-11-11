@@ -2,7 +2,7 @@
 """Session authentication views"""
 
 from os import getenv
-from flask import make_response, request, jsonify, session
+from flask import make_response, request, jsonify
 from api.v1.views import app_views
 from models.user import User
 
@@ -17,10 +17,9 @@ def session_authentication():
         return jsonify({"error": "email missing"}), 400
     if not form_password:
         return jsonify({"error": "password missing"}), 400
-    try:
-        attributes = {"email": form_email}
-        founduser = User.search(attributes)
-    except Exception:
+    attributes = {"email": form_email}
+    founduser = User.search(attributes)
+    if not founduser:
         return jsonify({"error": "no user found for this email"}), 404
     if not founduser[0].is_valid_password(form_password):
         return jsonify({"error": "wrong password"}), 404
