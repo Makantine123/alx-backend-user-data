@@ -37,7 +37,7 @@ def logout():
     """Destroy the session of logout"""
     try:
         from api.v1.app import auth
-        if auth.destroy_session(request):
-            return jsonify({}), 200
+        if not auth.destroy_session(request):
+            return False, abort(404)
     except Exception:
-        return False, abort(404)
+        return jsonify({}), 200
