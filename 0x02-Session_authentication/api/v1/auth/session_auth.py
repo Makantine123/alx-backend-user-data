@@ -33,7 +33,7 @@ class SessionAuth(Auth):
             try:
                 session_id = self.session_cookie(request)
                 if session_id:
-                    user_id = self.user_id_by_session_id(session_id)
+                    user_id = self.user_id_for_session_id(session_id)
                     if user_id:
                         user = User.get(user_id)
                         if user:
