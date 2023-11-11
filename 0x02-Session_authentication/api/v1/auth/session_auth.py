@@ -44,13 +44,13 @@ class SessionAuth(Auth):
         if request is None:
             return False
         session_id = self.session_cookie(request)
-        if not session_id:
+        if session_id is None:
             return False
         coockie = self.user_id_by_session_id(session_id)
-        if not coockie:
+        if coockie is None:
             return False
         try:
             del self.user_id_by_session_id[session_id]
-        except Exception:
+        except Exception as error:
             pass
         return True
