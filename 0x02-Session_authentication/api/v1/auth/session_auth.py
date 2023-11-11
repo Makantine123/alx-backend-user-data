@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Module contains SessionAuth class"""
 
-from typing import Dict
+from typing import Dict, TypeVar
 import uuid
 
 from .auth import Auth
@@ -26,3 +26,10 @@ class SessionAuth(Auth):
             return None
         user_id = self.user_id_by_session_id.get(session_id)
         return str(user_id)
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Returns user instance based on the cookie value"""
+        session_id = self.session_cookie(request)
+        user_id = self.user_id_by_session_id(session_id)
+        user = User.get(user_id)
+        return user
