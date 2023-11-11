@@ -2,7 +2,7 @@
 """Session authentication views"""
 
 from os import getenv
-from flask import make_response, request, jsonify
+from flask import make_response, request, jsonify, abort
 from api.v1.views import app_views
 from models.user import User
 
@@ -37,7 +37,6 @@ def session_authentication():
 def logout():
     """Destroy the session of logout"""
     from api.v1.app import auth
-    destroyed = auth.destroy_session(request)
-    if destroyed is False:
+    if not auth.destroy_session(request):
         abort(404)
     return jsonify({}), 200
