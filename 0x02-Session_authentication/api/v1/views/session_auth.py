@@ -4,7 +4,6 @@
 from os import getenv
 from flask import make_response, request, jsonify, abort
 from api.v1.views import app_views
-from api.v1.app import app
 from models.user import User
 
 
@@ -33,8 +32,8 @@ def session_authentication():
     return jsonify({"error": "wrong password"}), 401
 
 
-@app.route("/api/v1/auth_session/logout",
-           methods=["DELETE"], strict_slashes=False)
+@app_views.route("/auth_session/logout",
+                 methods=["DELETE"], strict_slashes=False)
 def logout():
     """Destroy the session of logout"""
     from api.v1.app import auth
