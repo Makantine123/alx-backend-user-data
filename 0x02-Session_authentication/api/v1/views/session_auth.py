@@ -24,8 +24,9 @@ def session_authentication():
         if user.is_valid_password(form_password):
             from api.v1.app import auth
             session_id = auth.create_session(user.id)
+            cookie = getenv("SESSION_NAME")
             user_dict = user.to_json()
             response = make_response(jsonify(user_dict))
-            response.set_cookie(getenv("SESSION_NAME"), session_id)
+            response.set_cookie(cookie, session_id)
             return response
-    return jsonify({"error": "wrong password"})
+    return jsonify({"error": "wrong password"}), 401
