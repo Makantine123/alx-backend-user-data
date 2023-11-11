@@ -34,7 +34,7 @@ def session_authentication():
 
 
 @app.route("/api/v1/auth_session/logout",
-                 methods=["DELETE"], strict_slashes=False)
+           methods=["DELETE"], strict_slashes=False)
 def logout():
     """Destroy the session of logout"""
     from api.v1.app import auth
