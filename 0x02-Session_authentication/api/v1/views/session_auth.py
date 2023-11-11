@@ -12,7 +12,6 @@ def session_authentication():
     """Returns a response with user object and set coockie"""
     form_email = request.form.get("email")
     form_password = request.form.get("password")
-
     if not form_email:
         return jsonify({"error": "email missing"}), 400
     if not form_password:
@@ -21,11 +20,12 @@ def session_authentication():
     founduser = User.search(attributes)
     if len(founduser) == 0:
         return jsonify({"error": "no user found for this email"}), 404
-    if not founduser[0].is_valid_password(form_password):
-        return jsonify({"error": "wrong password"}), 404
-    from api.v1.app import auth
-    session_id = auth.create_session(founduser[0].id)
-    user_dict = founduser[0].to_json()
-    response = make_response(jsonify(user_dict))
-    response.set_cookie(getenv("SESSION_NAME"), session_id)
-    return response
+    for user in founduser:
+        if user.is_valid_password(form_password):
+            from api.v1.app import auth
+            session_id = auth.create_session(user.id)
+            user_dict = user.to_json()
+            response = make_response(jsonify(user_dict))
+            response.set_cookie(getenv("SESSION_NAME"), session_id)
+            return response
+    return jsonify({"error": "wrong password"})
