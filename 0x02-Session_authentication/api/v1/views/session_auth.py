@@ -21,7 +21,7 @@ def session_authentication():
     founduser = User.search(attributes)
     if not founduser:
         return jsonify({"error": "no user found for this email"}), 404
-    if founduser[0].is_valid_password(form_password):
+    if not founduser[0].is_valid_password(form_password):
         return jsonify({"error": "wrong password"}), 404
     from api.v1.app import auth
     session_id = auth.create_session(founduser[0].id)
