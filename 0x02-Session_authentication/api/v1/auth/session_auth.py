@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Module contains SessionAuth class"""
 
-import json
 from typing import Dict
 import uuid
 
