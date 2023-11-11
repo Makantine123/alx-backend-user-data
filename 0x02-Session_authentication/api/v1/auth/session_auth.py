@@ -2,7 +2,7 @@
 """Module contains SessionAuth class"""
 
 import json
-from typing import Dict, TypeVar
+from typing import Dict
 import uuid
 
 from .auth import Auth
