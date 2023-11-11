@@ -19,7 +19,7 @@ def session_authentication():
         return jsonify({"error": "password missing"}), 400
     attributes = {"email": form_email}
     founduser = User.search(attributes)
-    if not founduser:
+    if not founduser[0]:
         return jsonify({"error": "no user found for this email"}), 404
     if not founduser[0].is_valid_password(form_password):
         return jsonify({"error": "wrong password"}), 404
