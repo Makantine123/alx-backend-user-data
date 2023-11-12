@@ -27,4 +27,5 @@ class SessionDBAuth(SessionExpAuth):
             return None
 
     def destroy_session(self, request=None):
+        """Destroy user session"""
         return super().destroy_session(request)
