@@ -33,9 +33,10 @@ class SessionExpAuth(SessionAuth):
             del self.user_id_by_session_id[session_id]
             return None
         if self.session_duration > 0:
-            expiration_time = created_at + timedelta(seconds=self.session_duration)
+            expiration_time = created_at + timedelta(
+                seconds=self.session_duration)
 
             if datetime.now() > expiration_time:
                 del self.user_id_by_session_id[session_id]
                 return None
-        return session_dict.get("user_id") 
+        return session_dict.get("user_id")
