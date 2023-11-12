@@ -4,6 +4,7 @@
 from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
 
+
 class SessionDBAuth(SessionExpAuth):
     """SessionDBAuth class"""
 
@@ -14,7 +15,10 @@ class SessionDBAuth(SessionExpAuth):
         return super().create_session(user_id)
 
     def user_id_for_session_id(self, session_id: str = None):
-        """Returns user id by requesting UserSession in the DB based on session_id"""
+        """
+        Returns user id by requesting
+        UserSession in the DB based on session_id
+        """
         attributes = {"session_id": session_id}
         try:
             user_id = UserSession.search(attributes)
