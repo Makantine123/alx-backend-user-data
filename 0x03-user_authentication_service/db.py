@@ -1,5 +1,8 @@
 """DB module
 """
+
+import bcrypt
+
 from sqlalchemy import create_engine
 from sqlalchemy.exc import InvalidRequestError,  NoResultFound
 from sqlalchemy.orm import sessionmaker
