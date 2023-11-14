@@ -101,7 +101,10 @@ class Auth:
             if not user:
                 raise ValueError
             hashed_pwd = _hash_password(password)
-            kwargs = {"hashed_password": hashed_pwd, "reset_token": None}
-            self._db.update_user(user.id, kwargs=kwargs)
+            self._db.update_user(
+                user.id,
+                hashed_password=hashed_pwd,
+                reset_token=None,
+            )
         except ValueError as err:
             raise err
