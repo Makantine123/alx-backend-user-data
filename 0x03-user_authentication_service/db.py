@@ -1,13 +1,11 @@
 """DB module
 """
-from typing import TypeVar
 from sqlalchemy import create_engine
 from sqlalchemy.exc import InvalidRequestError,  NoResultFound
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
-from user import Base
-from user import User
+from user import Base, User
 
 
 class DB:
