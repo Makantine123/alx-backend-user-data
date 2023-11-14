@@ -66,10 +66,10 @@ class Auth:
         except (InvalidRequestError, NoResultFound):
             return None
 
-    def get_user_from_session_id(session_id: str) -> User:
+    def get_user_from_session_id(self, session_id: str) -> User:
         """Get user from session id"""
         try:
-            user = self._db.fin_user_by(session_id=session_id)
+            user = self._db.find_user_by(session_id=session_id)
             return user
         except (InvalidRequestError, NoResultFound):
             return None
