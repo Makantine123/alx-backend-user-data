@@ -7,7 +7,7 @@ from user import User
 from db import DB
 
 
-def _hash_password(password: str) -> str:
+def _hash_password(password: str) -> bytes:
     """hash password"""
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
@@ -31,7 +31,7 @@ class Auth:
             raise err
         except Exception:
             hash_pwd = _hash_password(password)
-            new_user = self._db.add_user(email, hash_pwd)
+            new_user = self._db.add_user(email, str(hash_pwd))
             return new_user
 
     def valid_login(self, email: str, password: str) -> bool:
@@ -41,5 +41,7 @@ class Auth:
             stored_hashed_password = user.hashed_password.encode("utf-8")
             provided_password = password.encode("utf-8")
             return bcrypt.checkpw(provided_password, stored_hashed_password)
+        except ValueError:
+            return False
         except Exception:
             return False
