@@ -1,5 +1,6 @@
 """DB module
 """
+from typing import TypeVar
 from sqlalchemy import create_engine
 from sqlalchemy.exc import InvalidRequestError,  NoResultFound
 from sqlalchemy.orm import sessionmaker
@@ -30,7 +31,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email=None, hashed_password=None):
+    def add_user(self, email: str = None, hashed_password: str = None) -> User:
         """Add user method"""
         if email is None or hashed_password is None:
             return
@@ -39,7 +40,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs: dict) -> User:
         """Find user"""
         try:
             found = self._session.query(User).filter_by(**kwargs).first()
@@ -51,7 +52,7 @@ class DB:
         except InvalidRequestError:
             raise InvalidRequestError
 
-    def update_user(self, user_id=None, **kwargs):
+    def update_user(self, user_id: int = None, **kwargs: dict) -> None:
         """Update user method"""
         try:
             user = self.find_user_by(id=user_id)
