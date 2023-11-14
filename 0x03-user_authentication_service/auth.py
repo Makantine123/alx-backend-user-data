@@ -27,7 +27,19 @@ class Auth:
             raise ValueError(f"User {email} already exists")
         except ValueError as err:
             raise err
-        except:
+        except Exception:
             hash_pwd = _hash_password(password)
             new_user = self._db.add_user(email, hash_pwd)
             return new_user
+
+    def valid_login(self, email, password):
+        """Valid login"""
+        try:
+            user = self._db.find_user_by(email=email)
+            stored_hashed_password = user.hashed_password.encode("utf-8")
+            provided_password = password.encode("utf-8")
+            return bcrypt.checkpw(provided_password, stored_hashed_password)
+        except Exception:
+            return False
+        except Exception:
+            return False
