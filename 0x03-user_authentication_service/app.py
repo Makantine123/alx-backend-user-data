@@ -2,6 +2,7 @@
 """App"""
 
 from flask import Flask, abort, jsonify, make_response, redirect, request
+from sqlalchemy import exc
 from auth import Auth
 
 AUTH = Auth()
@@ -75,7 +76,10 @@ def get_reset_password_token():
     email = request.form.get("email", None)
     if email is None:
         abort(403)
-    new_token = AUTH.get_reset_password_token(email)
+    try:
+        new_token = AUTH.get_reset_password_token(email)
+    except ValueError:
+        abort(403)
     return jsonify({"email": email, "reset_token": new_token}), 200
 
 
