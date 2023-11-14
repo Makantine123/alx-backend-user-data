@@ -2,7 +2,6 @@
 """App"""
 
 from flask import Flask, abort, jsonify, make_response, redirect, request
-from sqlalchemy import exc
 from auth import Auth
 
 AUTH = Auth()
@@ -86,14 +85,14 @@ def get_reset_password_token():
 @app.route("/reset_password", methods=["PUT"], strict_slashes=False)
 def update_password():
     """Update password"""
-    email = request.form.get("email", None)
-    reset_token = request.form.get("reset_token", None)
-    new_password = request.form.get("new_password", None)
+    email = request.form.get("email")
+    reset_token = request.form.get("reset_token")
+    new_password = request.form.get("new_password")
     try:
         AUTH.update_password(reset_token, new_password)
     except ValueError:
         abort(403)
-    return jsonify({"email": email, "message": "Password updated"}), 200
+    return jsonify({"email": email, "message": "Password updated"})
 
 
 if __name__ == "__main__":
