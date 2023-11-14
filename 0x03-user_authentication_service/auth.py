@@ -3,6 +3,7 @@
 
 import bcrypt
 
+from user import User
 from db import DB
 
 
@@ -17,11 +18,11 @@ class Auth:
     """Auth class to interact with the authentication database.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialisation of class"""
         self._db = DB()
 
-    def register_user(self, email, password):
+    def register_user(self, email, password) -> User:
         """Register user"""
         try:
             self._db.find_user_by(email=email)
@@ -33,7 +34,7 @@ class Auth:
             new_user = self._db.add_user(email, hash_pwd)
             return new_user
 
-    def valid_login(self, email, password):
+    def valid_login(self, email, password) -> Bool:
         """Valid login"""
         try:
             user = self._db.find_user_by(email=email)
