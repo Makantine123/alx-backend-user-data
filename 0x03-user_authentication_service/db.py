@@ -31,7 +31,7 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str = None, hashed_password: str = None) -> User:
+    def add_user(self, email: str, hashed_password: str) -> User:
         """Add user method"""
         if email is None or hashed_password is None:
             return
@@ -52,7 +52,7 @@ class DB:
         except InvalidRequestError:
             raise InvalidRequestError
 
-    def update_user(self, user_id: int = None, **kwargs: dict) -> None:
+    def update_user(self, user_id: int, **kwargs: dict) -> None:
         """Update user method"""
         try:
             user = self.find_user_by(id=user_id)
