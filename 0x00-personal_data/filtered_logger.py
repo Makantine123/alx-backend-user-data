@@ -7,7 +7,7 @@ from typing import List
 
 
 def filter_datum(
-    fields: List[str], redaction: str, message: str, seperator: str
+    fields: List, redaction: str, message: str, seperator: str
         ) -> str:
     """filter_datum function"""
     extract, replace = (patterns["extract"], patterns["replace"])
