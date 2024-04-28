@@ -42,11 +42,11 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
     dbname = environ.get("PERSONAL_DATA_DB_NAME")
 
-    connect = mysql.connector.connection.MySQLConnection(user=username,
-                                                         password=password,
-                                                         host=host,
-                                                         database=dbname)
-    return connect
+    cont = mysql.connector.connect(user=username,
+                                   password=password,
+                                   host=host,
+                                   database=dbname)
+    return cont
 
 
 class RedactingFormatter(logging.Formatter):
