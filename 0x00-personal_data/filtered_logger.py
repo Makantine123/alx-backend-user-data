@@ -2,8 +2,11 @@
 """Module for personal data"""
 
 from typing import List
+from os import environ
 import re
 import logging
+import mysql.connector
+
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
@@ -30,6 +33,20 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
+
+
+def get_db():
+    """functioon"""
+    username = environ.get("PERSONAL_DATA_DB_USERNAME", "root")
+    password = environ.get("PERSONAL_DATA_DB_PASSWORD", "")
+    host = environ.get("PERSONAL_DATA_DB_HOST", "localhost")
+    dbname = environ.get("PERSONAL_DATA_DB_NAME")
+
+    connect = mysql.connector.connection.MySQLConnection(user=username,
+                                                         password=password,
+                                                         host=host,
+                                                         database=dbname)
+    return connect
 
 
 class RedactingFormatter(logging.Formatter):
