@@ -6,9 +6,10 @@ import re
 
 
 def filter_datum(fields, redaction, message, separator):
-    """Function"""
-    return re.sub(
-        r'(?:(?<=^)|(?<=\{})){}=[^{}]*'.
-        format(separator, '|'.
-               join(fields), separator), '{}={}'.
-        format(redaction, redaction), message)
+    """"Function"""
+    for field in fields:
+        message = re.sub(f'{field}=.*?{separator}',
+                         f'{field}={redaction}{separator}',
+                         message)
+
+    return message
